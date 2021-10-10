@@ -16,7 +16,7 @@ jobs:
       
     - name: Format Branchname
       shell: bash
-      run: echo "##[set-output name=branch_name_simple;]$(echo ${${{ steps.get_branchname.outputs.branch_name }}////-}"
+      run: echo "##[set-output name=branch_name_simple;]$(echo ${${{ steps.get_branchname.outputs.branch_name }}////-})"
       id: format_branchname
           
     - name: Install Terraform
