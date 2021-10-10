@@ -46,7 +46,7 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: terraform workspace select ${{ steps.format_branchname.outputs.branch_name_simple }} || terraform workspace new terraform workspace select ${{ steps.format_branchname.outputs.branch_name_simple }}
+      run: terraform workspace select ${{ steps.format_branchname.outputs.branch_name_simple }} || terraform workspace new ${{ steps.format_branchname.outputs.branch_name_simple }}
       working-directory: ./deployment
 
     - name: Terraform apply
