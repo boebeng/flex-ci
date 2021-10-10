@@ -9,10 +9,15 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
       
-    - name: Get Reference
+    - name: Get Branchname
       shell: bash
       run: echo "##[set-output name=branch_name;]$(echo ${GITHUB_REF#refs/heads/})"
-      id: get_reference
+      id: get_branchname
+      
+    - name: Format Branchname
+      shell: bash
+      run: echo "##[set-output name=branch_name_simple;]$(echo ${${{ steps.get_branchname.outputs.branch_name }}////-}"
+      id: format_branchname
           
     - name: Install Terraform
       uses: hashicorp/setup-terraform@v1
@@ -41,7 +46,7 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: terraform workspace select ${{ steps.get_reference.outputs.branch_name }////-} || terraform workspace new terraform workspace select ${{ steps.get_reference.outputs.branch_name }////-}
+      run: terraform workspace select ${{ steps.format_branchname.outputs.branch_name_simple }} || terraform workspace new terraform workspace select ${{ steps.format_branchname.outputs.branch_name_simple }}
       working-directory: ./deployment
 
     - name: Terraform apply
