@@ -23,7 +23,8 @@ provider "aws" {
 resource "aws_amplify_app" "amplify_app" {
   name         = "flexci-ampl-test"
   repository   = "https://github.com/boebeng/flex-ci.git"
-  access_token = var.REPO_TOKEN 
+  access_token = var.REPO_TOKEN
+
   # The default build_spec added by the Amplify Console for React.
   build_spec = <<-EOT
     version: 0.1
